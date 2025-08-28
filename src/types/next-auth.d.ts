@@ -1,4 +1,4 @@
-import { UserRole } from '../models/User';
+import { UserRole } from './UserRole';
 import 'next-auth';
 import { DefaultSession, DefaultJWT } from 'next-auth';
 

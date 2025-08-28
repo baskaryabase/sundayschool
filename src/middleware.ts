@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
-import { UserRole } from './models/User';
+import { UserRole } from './types/UserRole';
 
 export const config = {
   matcher: [

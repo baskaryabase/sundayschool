@@ -1,14 +1,7 @@
 import { Model, DataTypes, Optional } from 'sequelize';
 import { sequelize } from '../lib/db';
 import bcrypt from 'bcrypt';
-
-// User roles
-export enum UserRole {
-  STUDENT = 'STUDENT',
-  TEACHER = 'TEACHER',
-  PARENT = 'PARENT',
-  ADMIN = 'ADMIN',
-}
+import { UserRole } from '../types/UserRole';
 
 // User attributes interface
 export interface UserAttributes {

@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import toast from 'react-hot-toast';
-import { UserRole } from '../../models/User';
+import { UserRole } from '../../types/UserRole';
 import Layout from '../../components/Layout';
 
 // Components for different role dashboards
