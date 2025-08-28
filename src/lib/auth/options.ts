@@ -1,32 +1,37 @@
-import { NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
-import { sequelize } from '../db';
-import User from '../../models/User';
-import bcrypt from 'bcrypt';
-import { JWT } from 'next-auth/jwt';
+import { NextAuthOptions } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { sequelize } from "../db";
+import User from "../../models/User";
+import bcrypt from "bcrypt";
+import { JWT } from "next-auth/jwt";
 
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
-      name: 'Credentials',
+      name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "email", placeholder: "Enter your email" },
-        password: { label: "Password", type: "password" }
+        email: {
+          label: "Email",
+          type: "email",
+          placeholder: "Enter your email",
+        },
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         try {
           await sequelize.authenticate();
-          
-          const user = await User.findOne({ 
-            where: { email: credentials?.email } 
+
+          const user = await User.findOne({
+            where: { email: credentials?.email },
+            raw: true,
           });
 
           if (!user) {
             return null;
           }
-
+          console.log("User found:", user, credentials);
           const isPasswordValid = await bcrypt.compare(
-            credentials?.password || '', 
+            credentials?.password || "",
             user.passwordHash
           );
 
@@ -41,11 +46,11 @@ export const authOptions: NextAuthOptions = {
             role: user.role,
           };
         } catch (error) {
-          console.error('Auth error:', error);
+          console.error("Auth error:", error);
           return null;
         }
-      }
-    })
+      },
+    }),
   ],
   callbacks: {
     async jwt({ token, user }) {
@@ -64,16 +69,16 @@ export const authOptions: NextAuthOptions = {
     },
   },
   session: {
-    strategy: 'jwt',
+    strategy: "jwt",
     maxAge: 24 * 60 * 60, // 24 hours
   },
   pages: {
-    signIn: '/auth/login',
-    signOut: '/auth/logout',
-    error: '/auth/error',
+    signIn: "/auth/login",
+    signOut: "/auth/logout",
+    error: "/auth/error",
   },
   secret: process.env.NEXTAUTH_SECRET,
-  debug: process.env.NODE_ENV === 'development',
+  debug: process.env.NODE_ENV === "development",
 };
 
 export default authOptions;
