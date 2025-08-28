@@ -1,7 +1,7 @@
 import { QueryInterface } from 'sequelize';
 
 // Seeder name: seed-bible-verses
-module.exports = {
+const seeder = {
   async up(queryInterface: QueryInterface) {
     await queryInterface.bulkInsert('BibleVerses', [
       {
@@ -46,3 +46,6 @@ module.exports = {
     await queryInterface.bulkDelete('BibleVerses', {});
   },
 };
+
+
+export default seeder;

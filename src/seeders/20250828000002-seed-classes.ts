@@ -1,7 +1,7 @@
 import { QueryInterface } from 'sequelize';
 
 // Seeder name: seed-classes
-module.exports = {
+const seeder = {
   async up(queryInterface: QueryInterface) {
     await queryInterface.bulkInsert('Classes', [
       {
@@ -29,3 +29,6 @@ module.exports = {
     await queryInterface.bulkDelete('Classes', {});
   },
 };
+
+
+export default seeder;

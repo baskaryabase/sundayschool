@@ -1,7 +1,7 @@
 import { QueryInterface } from 'sequelize';
 
 // Seeder name: seed-class-assignments
-module.exports = {
+const seeder = {
   async up(queryInterface: QueryInterface) {
     // First, get the IDs of the users and classes we seeded
     const [users] = await queryInterface.sequelize.query(
@@ -39,3 +39,6 @@ module.exports = {
     await queryInterface.bulkDelete('ClassAssignments', {});
   },
 };
+
+
+export default seeder;

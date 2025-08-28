@@ -9,6 +9,7 @@ interface DbConfig {
   password: string;
   database: string;
   host: string;
+  port: number;
   dialect: string;
   logging: boolean;
   dialectOptions?: {
@@ -28,6 +29,7 @@ const sequelize = new Sequelize(
   dbConfig.password,
   {
     host: dbConfig.host,
+    port: dbConfig.port || 5431,
     dialect: 'postgres',
     logging: dbConfig.logging,
     ...(dbConfig.dialectOptions ? { dialectOptions: dbConfig.dialectOptions } : {}),

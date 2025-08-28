@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "fix:seeders": "node --experimental-modules scripts/fix-seeders.js",
+    "db:seed": "npx sequelize-cli db:seed:all --seeders-path ./src/seeders",
+    "db:seed:undo": "npx sequelize-cli db:seed:undo:all --seeders-path ./src/seeders"
   },
   "dependencies": {
     "@tailwindcss/forms": "^0.5.10",
@@ -37,6 +40,7 @@
     "eslint-config-next": "15.5.2",
     "sequelize-cli": "^6.6.3",
     "tailwindcss": "^4",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

@@ -40,16 +40,15 @@ A comprehensive web application for managing Sunday School operations, including
 
 ### Database Setup
 
-First, set up the PostgreSQL database:
+First, set up the PostgreSQL database using Docker Compose:
 
 ```bash
-# Using Docker (recommended)
-docker run --name sundayschool-postgres -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=sundayschool -p 5432:5432 -d postgres
+# Using the provided setup script
+./setup-database.sh
 
-# Run database migrations
+# Or manually with Docker Compose
+docker-compose up -d
 npx sequelize-cli db:migrate
-
-# Seed the database with initial data
 npx sequelize-cli db:seed:all
 ```
 
@@ -58,7 +57,12 @@ npx sequelize-cli db:seed:all
 Create a `.env.local` file with the following variables:
 
 ```
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/sundayschool
+DATABASE_URL=postgresql://user:password@localhost:5431/sundayschool
+DB_HOST=localhost
+DB_PORT=5431
+DB_DATABASE=sundayschool
+DB_USERNAME=user
+DB_PASSWORD=password
 NEXTAUTH_SECRET=your-secret-key
 NEXTAUTH_URL=http://localhost:3000
 ```

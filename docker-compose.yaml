@@ -1,14 +1,17 @@
-version: '3.8'
 services:
   postgres:
-    image: postgres:16 # Specifies the PostgreSQL image and version
-    container_name: postgres_db # Assigns a name to the container
+    image: postgres:14 # Using PostgreSQL 14 for better stability
+    container_name: sundayschool_db
     environment:
-      POSTGRES_USER: user # Sets the database username
-      POSTGRES_PASSWORD: password # Sets the database password
-      POSTGRES_DB: sundayschool # Sets the database name
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=sundayschool
     ports:
-      - "5431:5432" # Maps host port 5431 to container port 5432
+      - "5431:5432"
     volumes:
-      - ./.data:/var/lib/postgresql/data # Persists data in a named volume
-    restart: unless-stopped # Restarts the container unless it is explicitly stopped
+      - postgres_data:/var/lib/postgresql/data
+    restart: always
+    command: postgres -c listen_addresses='*'
+
+volumes:
+  postgres_data: # Defines a named volume for data persistence

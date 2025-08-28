@@ -1,7 +1,7 @@
 import { DataTypes, QueryInterface } from 'sequelize';
 
 // Migration name: create-bible-verses-table
-module.exports = {
+const migration = {
   async up(queryInterface: QueryInterface) {
     await queryInterface.createTable('BibleVerses', {
       id: {
@@ -42,3 +42,5 @@ module.exports = {
     await queryInterface.dropTable('BibleVerses');
   },
 };
+
+export default migration;

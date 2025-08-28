@@ -1,8 +1,9 @@
 import { DataTypes, QueryInterface } from 'sequelize';
-import { AttendanceStatus } from '../models/Attendance';
+// Attendance status as string literals
+const ATTENDANCE_STATUS = ['PRESENT', 'ABSENT', 'EXCUSED', 'LATE'];
 
 // Migration name: create-attendance-table
-module.exports = {
+const migration = {
   async up(queryInterface: QueryInterface) {
     await queryInterface.createTable('Attendances', {
       id: {
@@ -36,7 +37,7 @@ module.exports = {
         allowNull: false,
       },
       status: {
-        type: DataTypes.ENUM(...Object.values(AttendanceStatus)),
+        type: DataTypes.ENUM('PRESENT', 'ABSENT', 'EXCUSED', 'LATE'),
         allowNull: false,
       },
       markedBy: {
@@ -70,3 +71,5 @@ module.exports = {
     await queryInterface.dropTable('Attendances');
   },
 };
+
+export default migration;

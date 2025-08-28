@@ -1,8 +1,10 @@
 import { DataTypes, QueryInterface } from 'sequelize';
-import { UserRole } from '../models/User';
+
+// User roles as string literals
+const USER_ROLES = ['STUDENT', 'TEACHER', 'PARENT', 'ADMIN'];
 
 // Migration name: create-users-table
-module.exports = {
+const migration = {
   async up(queryInterface: QueryInterface) {
     await queryInterface.createTable('Users', {
       id: {
@@ -25,7 +27,7 @@ module.exports = {
         allowNull: false,
       },
       role: {
-        type: DataTypes.ENUM(...Object.values(UserRole)),
+        type: DataTypes.ENUM('STUDENT', 'TEACHER', 'PARENT', 'ADMIN'),
         allowNull: false,
       },
       createdAt: {
@@ -46,3 +48,5 @@ module.exports = {
     await queryInterface.dropTable('Users');
   },
 };
+
+export default migration;

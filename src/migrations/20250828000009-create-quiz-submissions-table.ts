@@ -1,7 +1,7 @@
 import { DataTypes, QueryInterface } from 'sequelize';
 
 // Migration name: create-quiz-submissions-table
-module.exports = {
+const migration = {
   async up(queryInterface: QueryInterface) {
     await queryInterface.createTable('QuizSubmissions', {
       id: {
@@ -63,3 +63,5 @@ module.exports = {
     await queryInterface.dropTable('QuizSubmissions');
   },
 };
+
+export default migration;

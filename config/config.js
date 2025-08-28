@@ -3,12 +3,13 @@ dotenv.config();
 
 const config = {
   development: {
-    username: process.env.DB_USERNAME || 'postgres',
-    password: process.env.DB_PASSWORD || 'postgres',
-    database: process.env.DB_DATABASE || 'sundayschool_dev',
-    host: process.env.DB_HOST || '127.0.0.1',
+    username: 'postgres',
+    password: 'postgres',
+    database: 'sundayschool',
+    host: 'localhost',
+    port: 5431,
     dialect: 'postgres',
-    logging: false,
+    logging: true,
   },
   test: {
     username: process.env.DB_USERNAME || 'postgres',
