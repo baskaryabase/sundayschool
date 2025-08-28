@@ -1,36 +1,164 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sunday School Management System
+
+A comprehensive web application for managing Sunday School operations, including class management, lesson planning, attendance tracking, assignments, and quizzes.
+
+## Tech Stack
+
+- **Frontend**: Next.js 15 (Pages Router), React, TailwindCSS
+- **Backend**: Next.js API routes
+- **Database**: PostgreSQL with Sequelize ORM
+- **Authentication**: NextAuth.js with role-based authentication (JWT)
+- **Migrations**: Sequelize CLI scripts for DB initialization
+
+## Features
+
+- **User Roles & Authentication**:
+  - Roles: Student, Teacher, Parent, Admin (Superintendent)
+  - Role-based access control via middleware
+
+- **Class Management**:
+  - Create/manage classes
+  - Assign students and teachers to classes
+
+- **Lesson Plans**:
+  - Upload and share lesson plans (PDF, video, or text)
+  - View lesson plans by class
+
+- **Attendance Tracking**:
+  - Mark attendance for students
+  - View attendance history and reports
+
+- **Assignments & Quizzes**:
+  - Create and assign homework
+  - Create quizzes with auto-grading for MCQs
+
+- **Bible Resources**:
+  - Daily Bible verse API
+  - Bible reference materials
 
 ## Getting Started
 
-First, run the development server:
+### Database Setup
+
+First, set up the PostgreSQL database:
 
 ```bash
+# Using Docker (recommended)
+docker run --name sundayschool-postgres -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=sundayschool -p 5432:5432 -d postgres
+
+# Run database migrations
+npx sequelize-cli db:migrate
+
+# Seed the database with initial data
+npx sequelize-cli db:seed:all
+```
+
+### Environment Setup
+
+Create a `.env.local` file with the following variables:
+
+```
+DATABASE_URL=postgresql://postgres:postgres@localhost:5432/sundayschool
+NEXTAUTH_SECRET=your-secret-key
+NEXTAUTH_URL=http://localhost:3000
+```
+
+### Running the Application
+
+```bash
+# Install dependencies
+npm install
+# or
+yarn install
+
+# Start the development server
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to access the application.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+sundayschool/
+├── components/         # Reusable UI components
+├── pages/              # Page components and routes
+│   ├── api/            # API routes
+│   ├── auth/           # Authentication pages
+│   └── dashboard/      # Dashboard pages for different roles
+├── models/             # Sequelize ORM models
+├── migrations/         # Database migrations
+├── seeders/            # Database seed data
+├── middleware.ts       # NextAuth middleware for route protection
+├── lib/                # Utility functions and helpers
+└── public/             # Static assets
+```
 
-## Learn More
+## Authentication
 
-To learn more about Next.js, take a look at the following resources:
+The application uses NextAuth.js with JWT for authentication. Users are assigned roles (Student, Teacher, Parent, Admin) which determine their access to different parts of the application.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```typescript
+// Example of protected API route
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  const session = await getServerSession(req, res, authOptions);
+  
+  if (!session || session.user.role !== 'ADMIN') {
+    return res.status(401).json({ message: 'Unauthorized' });
+  }
+  
+  // Handle request for authorized users
+}
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## API Routes
 
-## Deploy on Vercel
+The application includes the following API endpoints:
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Authentication
+- `POST /api/auth/[...nextauth]` - NextAuth.js authentication endpoints
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Users
+- `GET /api/users` - List all users (Admin only)
+- `GET /api/users/:id` - Get user details
+- `POST /api/users` - Create a new user (Admin only)
+- `PUT /api/users/:id` - Update user details
+- `DELETE /api/users/:id` - Delete a user (Admin only)
+
+### Classes
+- `GET /api/classes` - List all classes
+- `GET /api/classes/:id` - Get class details
+- `POST /api/classes` - Create a new class (Admin/Teacher only)
+- `PUT /api/classes/:id` - Update class details (Admin/Teacher only)
+- `DELETE /api/classes/:id` - Delete a class (Admin only)
+
+### Lesson Plans
+- `GET /api/lesson-plans` - List all lesson plans
+- `GET /api/lesson-plans/:id` - Get lesson plan details
+- `POST /api/lesson-plans` - Create a new lesson plan (Teacher only)
+- `PUT /api/lesson-plans/:id` - Update lesson plan (Teacher only)
+- `DELETE /api/lesson-plans/:id` - Delete a lesson plan (Teacher/Admin only)
+
+### Attendance
+- `GET /api/attendance/:classId` - Get attendance for a class
+- `POST /api/attendance` - Submit attendance (Teacher only)
+- `GET /api/attendance/student/:studentId` - Get attendance history for a student
+
+### Bible Resources
+- `GET /api/daily-verse` - Get the daily Bible verse
+
+## Deployment
+
+To deploy this application:
+
+1. Set up a PostgreSQL database
+2. Configure environment variables
+3. Build the application: `npm run build`
+4. Start the application: `npm run start`
+
+For production deployment, it's recommended to use platforms like Vercel or Netlify, which offer seamless integration with Next.js applications.

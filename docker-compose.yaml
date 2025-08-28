@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  postgres:
+    image: postgres:16 # Specifies the PostgreSQL image and version
+    container_name: postgres_db # Assigns a name to the container
+    environment:
+      POSTGRES_USER: user # Sets the database username
+      POSTGRES_PASSWORD: password # Sets the database password
+      POSTGRES_DB: sundayschool # Sets the database name
+    ports:
+      - "5431:5432" # Maps host port 5431 to container port 5432
+    volumes:
+      - ./.data:/var/lib/postgresql/data # Persists data in a named volume
+    restart: unless-stopped # Restarts the container unless it is explicitly stopped
