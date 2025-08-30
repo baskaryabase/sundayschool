@@ -136,7 +136,7 @@ User.init(
       beforeSave: async (user: User) => {
         if (user.changed('passwordHash')) {
           const salt = await bcrypt.genSalt(10);
-          user.passwordHash = await bcrypt.hash(user.passwordHash, salt);
+          user.passwordHash = await bcrypt.hash(user?.dataValues?.passwordHash, salt);
         }
       },
     },

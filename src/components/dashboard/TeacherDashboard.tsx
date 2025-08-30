@@ -179,7 +179,7 @@ export default function TeacherDashboard({ session, dailyVerse }: TeacherDashboa
             Create Quiz
           </Link>
           <Link 
-            href="/teacher/attendance" 
+            href="/attendance" 
             className="bg-indigo-600 text-white px-4 py-2 rounded text-center hover:bg-indigo-700 transition"
           >
             Take Attendance

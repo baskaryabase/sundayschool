@@ -124,7 +124,7 @@ export default function ParentDashboard({ session, dailyVerse }: ParentDashboard
                     <td className="py-2 px-4 border-b">{child.className}</td>
                     <td className="py-2 px-4 border-b">{child.gradeLevel}</td>
                     <td className="py-2 px-4 border-b">
-                      <Link href={`/parent/children/${child.id}`} className="text-indigo-600 hover:text-indigo-800">
+                      <Link href={`/users/${child.id}`} className="text-indigo-600 hover:text-indigo-800">
                         View Profile
                       </Link>
                     </td>
@@ -174,9 +174,9 @@ export default function ParentDashboard({ session, dailyVerse }: ParentDashboard
         )}
         
         <div className="mt-4">
-          <Link 
-            href="/parent/attendance" 
-            className="text-indigo-600 hover:text-indigo-800"
+                    <Link 
+            href="/attendance" 
+            className="text-indigo-600 hover:text-indigo-800 text-sm inline-block mt-2"
           >
             View Full Attendance History
           </Link>
@@ -200,10 +200,16 @@ export default function ParentDashboard({ session, dailyVerse }: ParentDashboard
             Browse Lesson Plans
           </Link>
           <Link 
-            href="/parent/profile" 
+            href="/users/profile" 
             className="bg-indigo-600 text-white px-4 py-2 rounded text-center hover:bg-indigo-700 transition"
           >
             Update Profile
+          </Link>
+          <Link 
+            href="/relationships" 
+            className="bg-indigo-600 text-white px-4 py-2 rounded text-center hover:bg-indigo-700 transition"
+          >
+            Manage Relationships
           </Link>
         </div>
       </div>

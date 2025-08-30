@@ -71,7 +71,7 @@ export default function AdminDashboard({ session, dailyVerse }: AdminDashboardPr
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-lg font-semibold text-indigo-700">Total Users</h2>
           <p className="text-3xl font-bold">{stats.totalUsers}</p>
-          <Link href="/admin/users" className="text-indigo-600 hover:text-indigo-800 text-sm inline-block mt-2">
+          <Link href="/users" className="text-indigo-600 hover:text-indigo-800 text-sm inline-block mt-2">
             Manage Users &rarr;
           </Link>
         </div>
@@ -79,7 +79,7 @@ export default function AdminDashboard({ session, dailyVerse }: AdminDashboardPr
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-lg font-semibold text-indigo-700">Classes</h2>
           <p className="text-3xl font-bold">{stats.totalClasses}</p>
-          <Link href="/admin/classes" className="text-indigo-600 hover:text-indigo-800 text-sm inline-block mt-2">
+          <Link href="/classes" className="text-indigo-600 hover:text-indigo-800 text-sm inline-block mt-2">
             Manage Classes &rarr;
           </Link>
         </div>
@@ -87,7 +87,7 @@ export default function AdminDashboard({ session, dailyVerse }: AdminDashboardPr
         <div className="bg-white p-6 rounded-lg shadow-md">
           <h2 className="text-lg font-semibold text-indigo-700">Lesson Plans</h2>
           <p className="text-3xl font-bold">{stats.totalLessons}</p>
-          <Link href="/admin/lessons" className="text-indigo-600 hover:text-indigo-800 text-sm inline-block mt-2">
+          <Link href="/lessons" className="text-indigo-600 hover:text-indigo-800 text-sm inline-block mt-2">
             Manage Lessons &rarr;
           </Link>
         </div>
@@ -98,25 +98,25 @@ export default function AdminDashboard({ session, dailyVerse }: AdminDashboardPr
         <h2 className="text-xl font-semibold text-indigo-700 mb-4">Quick Actions</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           <Link 
-            href="/admin/users/create" 
+            href="/users/create" 
             className="bg-indigo-600 text-white px-4 py-2 rounded text-center hover:bg-indigo-700 transition"
           >
             Add User
           </Link>
           <Link 
-            href="/admin/classes/create" 
+            href="/classes/create" 
             className="bg-indigo-600 text-white px-4 py-2 rounded text-center hover:bg-indigo-700 transition"
           >
             Create Class
           </Link>
           <Link 
-            href="/admin/assignments" 
+            href="/relationships/create" 
             className="bg-indigo-600 text-white px-4 py-2 rounded text-center hover:bg-indigo-700 transition"
           >
-            View Assignments
+            Manage Relationships
           </Link>
           <Link 
-            href="/admin/attendance" 
+            href="/attendance" 
             className="bg-indigo-600 text-white px-4 py-2 rounded text-center hover:bg-indigo-700 transition"
           >
             Attendance Reports

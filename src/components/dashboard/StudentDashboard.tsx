@@ -121,8 +121,11 @@ export default function StudentDashboard({ session, dailyVerse }: StudentDashboa
                     <td className="py-2 px-4 border-b">{cls.gradeLevel}</td>
                     <td className="py-2 px-4 border-b">{cls.teacherName}</td>
                     <td className="py-2 px-4 border-b">
-                      <Link href={`/student/classes/${cls.id}`} className="text-indigo-600 hover:text-indigo-800">
+                      <Link href={`/classes/${cls.id}`} className="text-indigo-600 hover:text-indigo-800 mr-2">
                         View Details
+                      </Link>
+                      <Link href={`/attendance/class/${cls.id}`} className="text-indigo-600 hover:text-indigo-800">
+                        View Attendance
                       </Link>
                     </td>
                   </tr>
@@ -163,7 +166,7 @@ export default function StudentDashboard({ session, dailyVerse }: StudentDashboa
                       </span>
                     </td>
                     <td className="py-2 px-4 border-b">
-                      <Link href={`/student/assignments/${assignment.id}`} className="text-indigo-600 hover:text-indigo-800">
+                      <Link href={`/assignments/${assignment.id}`} className="text-indigo-600 hover:text-indigo-800">
                         View
                       </Link>
                     </td>
