@@ -10,12 +10,22 @@ export interface UserAttributes {
   email: string;
   passwordHash: string;
   role: UserRole;
+  phone?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  zipCode?: string;
+  dateOfBirth?: Date;
+  isActive: boolean;
+  lastLoginAt?: Date;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-// User creation attributes interface (optional id, timestamps)
-export interface UserCreationAttributes extends Optional<UserAttributes, 'id' | 'createdAt' | 'updatedAt'> {}
+// User creation attributes interface (optional id, timestamps, and optional fields)
+export interface UserCreationAttributes extends Optional<UserAttributes, 
+  'id' | 'createdAt' | 'updatedAt' | 'phone' | 'address' | 'city' | 'state' | 
+  'zipCode' | 'dateOfBirth' | 'lastLoginAt' | 'isActive'> {}
 
 // User model class
 class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
@@ -24,6 +34,14 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
   public email!: string;
   public passwordHash!: string;
   public role!: UserRole;
+  public phone?: string;
+  public address?: string;
+  public city?: string;
+  public state?: string;
+  public zipCode?: string;
+  public dateOfBirth?: Date;
+  public isActive!: boolean;
+  public lastLoginAt?: Date;
 
   // Timestamps
   public readonly createdAt!: Date;
@@ -67,6 +85,39 @@ User.init(
     role: {
       type: DataTypes.ENUM(...Object.values(UserRole)),
       allowNull: false,
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    city: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    state: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    zipCode: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    dateOfBirth: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: true,
+    },
+    lastLoginAt: {
+      type: DataTypes.DATE,
+      allowNull: true,
     },
     createdAt: {
       type: DataTypes.DATE,

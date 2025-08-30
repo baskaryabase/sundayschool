@@ -8,7 +8,14 @@ export interface LessonPlanAttributes {
   id: number;
   title: string;
   description: string;
+  content: string;  // Rich text content of the lesson
+  bibleReference: string;  // Bible verses covered
+  keyPoints: string[];  // Array of key learning points
+  objectives: string;  // Learning objectives
+  duration: number;  // Lesson duration in minutes
   fileUrl?: string;  // Optional file URL (can be PDF, video, etc.)
+  status: string;  // draft, published, archived
+  publishDate?: Date;
   classId: number;
   createdBy: number;  // Teacher ID
   createdAt?: Date;
@@ -16,14 +23,22 @@ export interface LessonPlanAttributes {
 }
 
 // LessonPlan creation attributes interface
-export interface LessonPlanCreationAttributes extends Optional<LessonPlanAttributes, 'id' | 'fileUrl' | 'createdAt' | 'updatedAt'> {}
+export interface LessonPlanCreationAttributes extends Optional<LessonPlanAttributes, 
+  'id' | 'fileUrl' | 'createdAt' | 'updatedAt' | 'publishDate' | 'status'> {}
 
 // LessonPlan model class
 class LessonPlan extends Model<LessonPlanAttributes, LessonPlanCreationAttributes> implements LessonPlanAttributes {
   public id!: number;
   public title!: string;
   public description!: string;
+  public content!: string;
+  public bibleReference!: string;
+  public keyPoints!: string[];
+  public objectives!: string;
+  public duration!: number;
   public fileUrl?: string;
+  public status!: string;
+  public publishDate?: Date;
   public classId!: number;
   public createdBy!: number;
 
@@ -46,6 +61,40 @@ LessonPlan.init(
     description: {
       type: DataTypes.TEXT,
       allowNull: false,
+    },
+    content: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    bibleReference: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    keyPoints: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      allowNull: false,
+      defaultValue: [],
+    },
+    objectives: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+    },
+    duration: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 45, // 45 minutes default
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: 'draft',
+      validate: {
+        isIn: [['draft', 'published', 'archived']],
+      },
+    },
+    publishDate: {
+      type: DataTypes.DATE,
+      allowNull: true,
     },
     fileUrl: {
       type: DataTypes.STRING,
