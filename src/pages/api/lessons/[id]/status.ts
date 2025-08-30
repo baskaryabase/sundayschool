@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { withAuth } from '../../../../../lib/api-auth';
-import Lesson from '../../../../../models/Lesson';
-import { UserRole } from '../../../../../types/UserRole';
+import { withAuth } from '../../../../lib/api-auth';
+import Lesson from '../../../../models/Lesson';
+import { UserRole } from '../../../../types/UserRole';
 
 async function handler(
   req: NextApiRequest,
