@@ -12,9 +12,22 @@ import QuizSubmission from './QuizSubmission';
 import BibleVerse from './BibleVerse';
 import ParentChild from './ParentChild';
 import ClassEnrollment from './ClassEnrollment';
+import Lesson from './Lesson';
 
 // Establish associations that aren't already set up in individual model files
 // This ensures all associations are properly loaded when models are imported
+
+// Setup Class and Lesson associations
+Class.hasMany(Lesson, { 
+  foreignKey: 'classId',
+  as: 'lessons' 
+});
+
+// Setup User and Lesson associations
+User.hasMany(Lesson, {
+  foreignKey: 'teacherId',
+  as: 'lessons'
+});
 
 export {
   User,
@@ -31,5 +44,6 @@ export {
   QuizSubmission,
   BibleVerse,
   ParentChild,
-  ClassEnrollment
+  ClassEnrollment,
+  Lesson
 };
